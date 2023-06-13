@@ -1,10 +1,11 @@
 import React from 'react'
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
-import { Navbar } from '../Navbar/Navbar'
+
+
 export const Homepage = () => {
   return (
     <div>
-    <Navbar/>
+    
         <Flex backgroundColor={"#E3CFED"}>
             <Flex flexDirection={"column"} justifyContent={"center"} alignItems={"center"} w="50%">
                 <Box w="44%">
