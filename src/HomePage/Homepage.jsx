@@ -5,16 +5,15 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react'
 export const Homepage = () => {
   return (
     <div>
-    
-        <Flex backgroundColor={"#E3CFED"}>
+        <Flex padding="20px" backgroundColor={"#E3CFED"}>
             <Flex flexDirection={"column"} justifyContent={"center"} alignItems={"center"} w="50%">
-                <Box w="44%">
+                <Box mt="20px" w="44%">
                     <Text fontSize={"40px"} lineHeight={1.15} fontWeight={300}>Where credit meets confidence.</Text>
                 </Box>
-                <Box w="43%">
+                <Box mt="20px" w="43%">
                     <Text fontSize={"20px"} >Intuit Credit Karma uses your credit profile to show you curated recommendations. Plus, you can see your Approval Odds¹ before you apply without impacting your scores.</Text>
                 </Box>
-                <Flex gap={"60px"}>
+                <Flex mt="30px" gap={"80px"}>
                     <Button w="95px" backgroundColor={"#008701"} color={"white"} _hover={{backgroundColor:"#008701"}}>Sign Up</Button>
                     <Button w="95px" border={"1px solid #008701"} backgroundColor={"white"} color={"#008701"}>Log in</Button>
                 </Flex>
@@ -23,8 +22,8 @@ export const Homepage = () => {
                 <img src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/karmaConfidence/hero/CC+PL_DESKTOP_3x.png?auto=format" alt="" />
             </Flex>
          </Flex>
-         <Text textAlign={"center"} fontSize={"32px"}>Financial products for every step of your journey.</Text>
-         <Flex  justifyContent={"center"} gap="30px">
+         <Text mt="80px" textAlign={"center"} fontSize={"32px"}>Financial products for every step of your journey.</Text>
+         <Flex mb="80px" padding="30px" mt="10px"  justifyContent={"center"} gap="30px">
             <Flex flexDirection={"column"}><Flex  backgroundColor={"#FEDCDD"} justifyContent={"center"} borderRadius={"10px"} padding={"5px"}><img style={{width:"70%"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/swimlane/Credit_Card@2x.png?auto=format%2Ccompress&dpr=1" alt="" />  </Flex><p>Cards</p></Flex>
             <Flex flexDirection={"column"}><Flex  backgroundColor={"#C9E4CF"} justifyContent={"center"} borderRadius={"10px"} padding={"5px"}><img style={{width:"70%"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/swimlane/Loans@2x.png?auto=format%2Ccompress&dpr=1" alt="" />  </Flex><p>Loans</p></Flex>
             <Flex flexDirection={"column"}><Flex  backgroundColor={"#FFE4C9"} justifyContent={"center"} borderRadius={"10px"} padding={"5px"}><img style={{width:"70%"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/swimlane/Accounts@2x.png?auto=format%2Ccompress&dpr=1" alt="" />  </Flex><p>Accounts</p></Flex>
@@ -33,24 +32,24 @@ export const Homepage = () => {
             <Flex flexDirection={"column"}><Flex  backgroundColor={"#C9E4CF"} justifyContent={"center"} borderRadius={"10px"} padding={"5px"}><img style={{width:"70%"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/swimlane/Home@2x.png?auto=format%2Ccompress&dpr=1" alt="" /> </Flex> <p>Home</p></Flex>
          </Flex>
          <Flex justifyContent={"center"}>
-            <Box padding={"30px"} w="50%" display={"grid"} placeItems={"center"} backgroundColor={"#C9E4CF"}>
+            <Box h="1000px" padding={"50px"} w="50%" display={"grid"} placeItems={"center"} backgroundColor={"#C9E4CF"}>
                 <Box>
                 <img style={{paddingLeft:"1rem", paddingRight:"1rem",height:"300px", width:"350px"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/ck_money_steps.png?auto=format%2Ccompress" alt="" />
                 </Box>
-                <Box>
+                <Box mt="20px">
                 <Text fontSize={"32px"} w="200px">Build credit the easy way.</Text>
-                <Text fontSize={"20px"}  w="370px">If you are new to credit, putting away as little as $10 per paycheck could help your score go up. Just a few clicks and you could be approved instantly to start improving your credit in as little as two months.</Text>
-                <Button>Start Now</Button>
+                <Text fontSize={"20px"} mt="20px"  w="370px">If you are new to credit, putting away as little as $10 per paycheck could help your score go up. Just a few clicks and you could be approved instantly to start improving your credit in as little as two months.</Text>
+                <Button backgroundColor={"#008701"} color={"white"} _hover={{backgroundColor:"#008701", color:"white"}} mt="20px">Start Now</Button>
                 </Box>
             </Box>
             <Flex padding={"30px"} w="50%" display={"grid"} placeItems={"center"} backgroundColor={"#FFE4C9"}>
                 <img style={{ height:"300px", width:"350px"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/Relief_Roadmap@2x.png?auto=format%2Ccompress" alt="" />
                 <Text fontSize={"32px"} w="350px">Get the personalized relief you need.</Text>
                 <Text fontSize={"20px"} w="370px">Relief roadmap connects you to government support and personalized debt relief options.</Text>
-                <Button>See your roadmap</Button>
+                <Button  backgroundColor={"#008701"} color={"white"} _hover={{backgroundColor:"#008701", color:"white"}} mt="20px">See your roadmap</Button>
             </Flex>
          </Flex>
-         <Flex  marginTop={"50px"}>
+         <Flex  marginTop={"150px"} mb="100px">
             <Box w="50%" display={"grid"} placeItems={"center"}>
                 <Text fontSize={"32px"} width={"300px"}>Financial progress starts with credit health.</Text>
             </Box>
@@ -90,7 +89,7 @@ export const Homepage = () => {
                 </Box>
             </Box>
          </Flex>
-         <Flex border="1px  solid black" justifyContent={"center"}>
+         <Flex justifyContent={"center"}>
             <Box w="50%">
                 <img src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/Download_App_Desktop@2x.png?auto=format%2Ccompress" alt="" />
             </Box>
@@ -120,7 +119,7 @@ export const Homepage = () => {
                 <img src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/Editorial_Desktop@2x.png?auto=format%2Ccompress" alt="" />
             </Box>
          </Flex>
-         <Flex marginTop={"50px"}>
+         <Flex marginTop={"100px"} mb="100px">
             <Box w="50%" display={"grid"} placeItems={"center"}>
                 <Text fontSize={"32px"} textAlign={"center"}>We've got you covered.</Text>
             </Box>

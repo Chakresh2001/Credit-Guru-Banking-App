@@ -6,7 +6,7 @@ import "./Navbar.css"
 
 export const Navbar = () => {
   return (
-    <div style={{border:"1px solid black"}}>
+    <div>
         <Box >
          <Flex padding={"10px"} h="60px" w="100%" justifyContent={"space-between"} alignItems={"center"}>
             <Link to={"/"} style={{color:"#008701", width:"10%"}}> <span style={{fontWeight:"bold", fontSize:"25px"}}>creditGuru</span> </Link>
