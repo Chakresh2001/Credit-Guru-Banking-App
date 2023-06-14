@@ -14,7 +14,7 @@ export const Navbar = () => {
             <Link className='onHover-NavLink'>Credit Card</Link>
             <Link className='onHover-NavLink'>Loan</Link>
             <Link className='onHover-NavLink'>Home</Link>
-            <Link className='onHover-NavLink'>Money</Link>
+            <Link className='onHover-NavLink' to="/money" >Money</Link>
             <Link className='onHover-NavLink'>Debt Calculator</Link>
             <Link className='onHover-NavLink'>Credit Scores</Link>
          </Flex>

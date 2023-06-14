@@ -3,6 +3,7 @@ import { Routes,Route } from 'react-router-dom'
 import { Navbar } from './Navbar'
 import { Homepage } from '../HomePage/Homepage'
 import { Footer } from './Footer'
+import { MoneyPage } from '../Money/MoneyPage'
 
 
 
@@ -12,6 +13,7 @@ export const MainRoutes = () => {
     <Navbar/>
      <Routes>
       <Route path='/' element={<Homepage/>} />
+      <Route path='/money' element={<MoneyPage/>}/>
      </Routes>
      <Footer/>
     </div>
