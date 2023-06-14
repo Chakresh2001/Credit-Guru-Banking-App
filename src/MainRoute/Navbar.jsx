@@ -12,7 +12,7 @@ export const Navbar = () => {
             <Link to={"/"} style={{color:"#008701", width:"10%"}}> <span style={{fontWeight:"bold", fontSize:"25px"}}>creditGuru</span> </Link>
          <Flex mr="500px" w="50%" justifyContent={"space-evenly"}>
             <Link className='onHover-NavLink'>Credit Card</Link>
-            <Link className='onHover-NavLink'>Loan</Link>
+            <Link className='onHover-NavLink' to={"/loans"}>Loan</Link>
             <Link className='onHover-NavLink'>Home</Link>
             <Link className='onHover-NavLink'>Money</Link>
             <Link className='onHover-NavLink'>Debt Calculator</Link>
