@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 
 export const Homepage = () => {
@@ -25,7 +26,7 @@ export const Homepage = () => {
          <Text mt="80px" textAlign={"center"} fontSize={"32px"}>Financial products for every step of your journey.</Text>
          <Flex mb="80px" padding="30px" mt="10px"  justifyContent={"center"} gap="30px">
             <Flex flexDirection={"column"}><Flex  backgroundColor={"#FEDCDD"} justifyContent={"center"} borderRadius={"10px"} padding={"5px"}><img style={{width:"70%"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/swimlane/Credit_Card@2x.png?auto=format%2Ccompress&dpr=1" alt="" />  </Flex><p>Cards</p></Flex>
-            <Flex flexDirection={"column"}><Flex  backgroundColor={"#C9E4CF"} justifyContent={"center"} borderRadius={"10px"} padding={"5px"}><img style={{width:"70%"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/swimlane/Loans@2x.png?auto=format%2Ccompress&dpr=1" alt="" />  </Flex><p>Loans</p></Flex>
+            <Flex flexDirection={"column"}><Flex  backgroundColor={"#C9E4CF"} justifyContent={"center"} borderRadius={"10px"} padding={"5px"}><Link to={"/loans"}><img style={{width:"70%"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/swimlane/Loans@2x.png?auto=format%2Ccompress&dpr=1" alt="" /></Link>  </Flex><p>Loans</p></Flex>
             <Flex flexDirection={"column"}><Flex  backgroundColor={"#FFE4C9"} justifyContent={"center"} borderRadius={"10px"} padding={"5px"}><img style={{width:"70%"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/swimlane/Accounts@2x.png?auto=format%2Ccompress&dpr=1" alt="" />  </Flex><p>Accounts</p></Flex>
             <Flex flexDirection={"column"}><Flex  backgroundColor={"#C1E1EA"} justifyContent={"center"} borderRadius={"10px"} padding={"5px"}><img style={{width:"70%"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/swimlane/Savings@2x.png?auto=format%2Ccompress&dpr=1" alt="" />  </Flex><p>Savings</p></Flex>
             <Flex flexDirection={"column"}><Flex  backgroundColor={"#FEDCDD"} justifyContent={"center"} borderRadius={"10px"} padding={"5px"}><img style={{width:"70%"}} src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/swimlane/Auto@2x.png?auto=format%2Ccompress&dpr=1" alt="" />  </Flex><p>Auto</p></Flex>
