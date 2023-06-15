@@ -3,7 +3,7 @@ import { GET_AUTH_FAILURE, GET_AUTH_REQUEST, GET_AUTH_SUCCESS } from "../actionT
 const initialState = {
     loading : false,
     isAuth: false,
-    error : false
+    error : null
 }
 
 export const reducer = (state=initialState,{type})=>{

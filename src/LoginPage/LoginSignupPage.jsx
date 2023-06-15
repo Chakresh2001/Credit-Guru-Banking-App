@@ -5,11 +5,8 @@ import { Box, useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthStatus } from '../Redux/AuthReducer/action';
 import { Navigate, useNavigate } from 'react-router-dom';
-// "name": "Chakresh Jha",
-//     "mail": "chakresh@mial.com",
-//     "password": "12345",
-//     "dob": "09-02-2001",
-//     "address": "56, ram chandra ghosal lane konnagar",
+
+
 const ini = {
     name : "",
     mail : "",
