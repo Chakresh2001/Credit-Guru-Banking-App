@@ -14,10 +14,12 @@ export const Homepage = () => {
                 <Box mt="20px" w="43%">
                     <Text fontSize={"20px"} >Intuit Credit Karma uses your credit profile to show you curated recommendations. Plus, you can see your Approval Odds¹ before you apply without impacting your scores.</Text>
                 </Box>
+                    <Link to="/login">
                 <Flex mt="30px" gap={"80px"}>
                     <Button w="95px" backgroundColor={"#008701"} color={"white"} _hover={{backgroundColor:"#008701"}}>Sign Up</Button>
                     <Button w="95px" border={"1px solid #008701"} backgroundColor={"white"} color={"#008701"}>Log in</Button>
                 </Flex>
+                    </Link>
             </Flex>
             <Flex w="493px">
                 <img src="https://ck-content.imgix.net/res/content/bundles/homepage/2.7.0/assets/karmaConfidence/hero/CC+PL_DESKTOP_3x.png?auto=format" alt="" />
