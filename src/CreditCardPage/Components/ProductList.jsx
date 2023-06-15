@@ -12,7 +12,9 @@ export const ProductList = () => {
 
     let obj = {
         params: {
-            _sort: searchParams.get("order") && "price",
+            bankName: searchParams.getAll("bankName"),
+            cardType: searchParams.getAll("cardType"),
+            _sort: searchParams.get("order") && "cardPrice",
             _order: searchParams.get("order"),
         }
     }
