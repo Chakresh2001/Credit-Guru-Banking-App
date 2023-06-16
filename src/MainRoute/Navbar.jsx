@@ -63,8 +63,8 @@ export const Navbar = () => {
             </MenuButton>
             <MenuList>
                <MenuGroup title='Profile'>
-                  <MenuItem>My Cards</MenuItem>
-                  <MenuItem>Loans </MenuItem>
+                  <Link to="/user-credit-cards" ><MenuItem>My Cards</MenuItem></Link>
+                  <Link to="/user-loans"><MenuItem>Loans </MenuItem></Link>
                   <MenuItem onClick={handleClick}>Sign Out </MenuItem>
                </MenuGroup>
             </MenuList>
