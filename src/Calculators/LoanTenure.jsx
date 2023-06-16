@@ -86,8 +86,11 @@ const LoanTenure = () => {
 
     const R = parseFloat((interestRate)/1200);
     const N = parseFloat(loanTenure*12);
-
+    const r = parseFloat((interestRate)/100)
     const principal = (parseFloat(emi) * (+(((R+1)**N)-1).toFixed(5)))/(+((R*((R+1)**N))).toFixed(5));
+
+    const apr = ((1 + (r/N))**(N*1)) - 1;
+    console.log(apr,"apr")
 
     const totalInterestPayable = parseFloat(principal) * (parseFloat(interestRate) / 100);
 
@@ -95,7 +98,8 @@ const LoanTenure = () => {
 
     setLoanAmount(principal.toFixed(2));
 
-    // setLoanAPR(apr.toFixed(2));//
+    setLoanAPR((apr*100).toFixed(2));//
+    // APR = (1 + r/n)^(n*t) - 1
 
     setTotalInterest(totalInterestPayable.toFixed(2));
 
