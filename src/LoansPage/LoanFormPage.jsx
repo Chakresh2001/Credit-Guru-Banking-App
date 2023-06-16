@@ -10,10 +10,22 @@ import {
   Heading,
   Input,
   Select,
+  useDisclosure,
+  useToast,
+  Text
 } from '@chakra-ui/react';
 import axios from 'axios';
-
 // import backgroundImage from "./images/loan-background.png"
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom';
 
 
 export function LoanFormPage() {
@@ -22,8 +34,8 @@ export function LoanFormPage() {
     backgroundImage: `url(${"./images/loan-background.jpg"})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
-    width: "100%",
-    height: "875px"
+    width: "100vw",
+    height: "100vh",
   }
 
   const [firstName, setFirstName] = useState('');
@@ -35,7 +47,22 @@ export function LoanFormPage() {
   const [interestRate, setInterestRate] = useState(0);
   const [aadharCard, setAadharCard] = useState(null);
   const [error, setError] = useState('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate()
+  
 
+  function reset(){
+    setFirstName('');
+    setLastName('');
+    setDOB('');
+    setLoanType('');
+    setLoanTenure('');
+    setLoanAmount('');
+    setInterestRate(0);
+    setAadharCard(null);
+    setError('');
+  }
+  
   const handleLoanTypeChange = (event) => {
     const selectedLoanType = event.target.value;
   setLoanType(selectedLoanType);
@@ -73,11 +100,13 @@ export function LoanFormPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let username = firstName+" "+lastName
     // Perform form submission or validation here
-    // You can access the form data in the respective state variable
-    const obj = {
-      [username] : {
+    // You can access the form data in the respective state variables
+    let UserName = firstName
+    let obj = {
+      [UserName] : {
+      firstName,
+      lastName,
       dob,
       loanType,
       loanTenure,
@@ -85,28 +114,24 @@ export function LoanFormPage() {
       aadharCard,
       }
     }
-
-    axios.post("https://creditguru.onrender.com/users2",obj).then((res)=>{
-      console.log(res.data)
+    axios.post("https://creditguru.onrender.com/users2", obj).then((res)=>{
+        onOpen()
     })
     reset()
   };
 
-  function reset (){
-    setFirstName("");
-    setLastName("");
-    setDOB("");
-    setLoanAmount("");
-    setLoanTenure("");
-    setLoanType("");
-    setInterestRate(0);
-    setAadharCard(null);
-    setError("");
+  if(isOpen){
+    setTimeout(() => {
+      onClose();
+      navigate('/');
+    }, 3000);
+
   }
+
 
   return (<>
     <div style={divStyles}>
-    <Heading color="#33FF8A" textAlign="right" mr="275px">Loan Form</Heading>
+    <Heading color="#33FF8A" textAlign="center" ml="500px">Loan Form</Heading>
     <ChakraProvider>
       <Container maxW="md" mt={2} ml="800px">
         
@@ -216,6 +241,23 @@ export function LoanFormPage() {
         </Box>
       </Container>
     </ChakraProvider>
+
+    <>
+        <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody textAlign={"center"} fontWeight={"bold"}>
+            <Text>Thank You For Applying !</Text>
+            <Text>We Will Connect With You Shortly ❤️</Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+    
     </div>
     </>
   );
