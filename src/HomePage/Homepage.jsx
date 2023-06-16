@@ -153,7 +153,7 @@ export const Homepage = () => {
             </Box>
          </Flex>
          <Box textAlign={"center"} display={"grid"} placeItems={"center"}>
-            <Text fontSize={"13px"}>¹Approval Odds are not a guarantee of approval. Credit Karma determines Approval Odds by comparing your credit profile to other Credit Karma members who were approved for the</Text>
+            <Text fontSize={"13px"}>Approval Odds are not a guarantee of approval. Credit Karma determines Approval Odds by comparing your credit profile to other Credit Karma members who were approved for the</Text>
             <Text fontSize={"13px"}>product shown, or whether you meet certain criteria determined by the lender. Of course, there's no such thing as a sure thing, but knowing your Approval Odds may help you narrow down</Text>
             <Text fontSize={"13px"}>your choices. For example, you may not be approved because you don't meet the lender's "ability to pay standard" after they verify your income and employment; or, you already have the</Text>
             <Text fontSize={"13px"}>maximum number of accounts with that specific lender.</Text>

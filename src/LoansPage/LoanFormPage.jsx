@@ -11,8 +11,19 @@ import {
   Input,
   Select,
 } from '@chakra-ui/react';
+// import backgroundImage from "./images/loan-background.png"
+
 
 export function LoanFormPage() {
+
+  const divStyles = {
+    backgroundImage: `url(${"./images/loan-background.jpg"})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    width: "100vw",
+    height: "100vh",
+  }
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [dob, setDOB] = useState('');
@@ -73,11 +84,13 @@ export function LoanFormPage() {
     });
   };
 
-  return (
+  return (<>
+    <div style={divStyles}>
+    <Heading color="#33FF8A" textAlign="right" mr="275px">Loan Form</Heading>
     <ChakraProvider>
-      <Container maxW="md" mt={10}>
-        <Heading>Loan Form</Heading>
-        <Box p={6} boxShadow="md" rounded="md">
+      <Container maxW="md" mt={2} ml="800px">
+        
+        <Box p={6} boxShadow="md" rounded="md" backgroundColor="white" >
           <form onSubmit={handleSubmit}>
             <FormControl isRequired mb={4}>
               <FormLabel>First Name</FormLabel>
@@ -183,5 +196,7 @@ export function LoanFormPage() {
         </Box>
       </Container>
     </ChakraProvider>
+    </div>
+    </>
   );
 }
