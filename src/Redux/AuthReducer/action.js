@@ -1,11 +1,10 @@
 import axios from "axios"
 import { GET_AUTH_FAILURE, GET_AUTH_REQUEST, GET_AUTH_SUCCESS } from "../actionType"
 
-
-export const getAuthStatus = (mail,password) => (dispatch)=>{
+export const getAuthStatus = (mail,password) => async(dispatch)=>{
     dispatch({type:GET_AUTH_REQUEST})
     
-    axios.get('https://zealous-ant-smock.cyclic.app/users')
+   let res = await axios.get('https://creditguru.onrender.com/users')
     .then((res)=>{
         let response = res.data
         response.map((ele)=>{
