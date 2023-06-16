@@ -1,10 +1,10 @@
-import React, { useReducer, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import * as Components from "./Components"
 import axios from 'axios';
 import { Box, useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthStatus } from '../Redux/AuthReducer/action';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 
 const ini = {
@@ -42,6 +42,10 @@ export const LoginSignupPage = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const toast = useToast()
+    const data = useSelector((store)=>store.authReducer)
+    const {isAuth} = data
+    
+    let location = useLocation()
     
     const [state,dis] = useReducer(reducer,ini)
 
@@ -120,7 +124,7 @@ export const LoginSignupPage = () => {
             else{
                   axios.post(`https://creditguru.onrender.com/users`,obj)
                     .then((res)=>{
-                      console.log(res)
+                    //   console.log(res)
                       toast({
                         title: 'Account created.',
                         description: "We've created your account for you.",
@@ -128,9 +132,7 @@ export const LoginSignupPage = () => {
                         duration: 2000,
                         isClosable: true,
                       })
-                      setTimeout(() => {
-                        navigate("/login")
-                      }, 3000);
+                      
                     })
               }
               
@@ -139,6 +141,14 @@ export const LoginSignupPage = () => {
         
         
     }
+
+    useEffect(()=>{
+        if(isAuth){
+            setTimeout(() => {
+                navigate(location.state)
+            }, 3000);
+        }
+      },[isAuth])
 
 
     return(
@@ -153,7 +163,7 @@ export const LoginSignupPage = () => {
                     <Components.Input type='text' placeholder='Confirm Password' name="check" value={check} onChange={(e)=>setcheck(e.target.value)} />
                     <Components.Input type='text' placeholder='Phone No.' name="phoneNo" value={state.phoneNo} onChange={handleChange}/>
                     <Components.Input type='text' placeholder='Address' name="address" value={state.address} onChange={handleChange}/>
-                    <Components.Input type='text' placeholder='Date Of Birth' name="dob" value={state.dob} onChange={handleChange}/>
+                    <Components.Input type='date' placeholder='Date Of Birth' name="dob" value={state.dob} onChange={handleChange}/>
                     <Components.Button>Sign Up</Components.Button>
                 </Components.Form>
             </Components.SignUpContainer>
