@@ -49,7 +49,7 @@ export const Navbar = () => {
             <Link className='onHover-NavLink' to={"/loans"}>Loan</Link>
             <Link className='onHover-NavLink'>Home</Link>
             <Link className='onHover-NavLink' to="/money" >Money</Link>
-            <Link className='onHover-NavLink'>EMI Calculator</Link>
+            <Link className='onHover-NavLink' to={"/loan-calculator"}>EMI Calculator</Link>
             <Link className='onHover-NavLink'>Credit Scores</Link>
             
          </Flex>
