@@ -4,7 +4,7 @@ import { GET_AUTH_FAILURE, GET_AUTH_REQUEST, GET_AUTH_SUCCESS, LOGOUT_SUCCESS } 
 export const getAuthStatus = (mail,password) => async(dispatch)=>{
     dispatch({type:GET_AUTH_REQUEST})
     
-   let res = await axios.get('https://fair-pink-gecko.cyclic.app/users')
+   let res = await axios.get('https://creditguru.onrender.com/users')
     .then((res)=>{
       let data = res?.data
       

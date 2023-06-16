@@ -5,8 +5,6 @@ import { Box, useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthStatus } from '../Redux/AuthReducer/action';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { getSignUp } from '../Redux/SiginUpReducer/action';
-import useSelection from 'antd/es/table/hooks/useSelection';
 
 
 const ini = {
@@ -90,7 +88,6 @@ export const LoginSignupPage = () => {
 
     let handleSignUp = (e)=>{
         e.preventDefault()
-
         if(check!==state.password){
             toast({
               title: 'Password Mismatch',
@@ -102,13 +99,47 @@ export const LoginSignupPage = () => {
             })
         }
         else{
-            dispatch(getSignUp(state))
-            
+            axios.get(`https://creditguru.onrender.com/users`)
+            .then((res)=>{
+            let data = res?.data
+            let result = data.filter((ele)=>{
+                if(ele.mail==state.mail){
+                    return true
+                }
+          
+            })
+            let obj = state
+            if(result.length>0){
+                toast({
+                  title: 'User Already Registered',
+                  status: 'error',
+                  duration: 2000,
+                  isClosable: true,
+                })
+            }
+            else{
+                  axios.post(`https://creditguru.onrender.com/users`,obj)
+                    .then((res)=>{
+                      console.log(res)
+                      toast({
+                        title: 'Account created.',
+                        description: "We've created your account for you.",
+                        status: 'success',
+                        duration: 2000,
+                        isClosable: true,
+                      })
+                      setTimeout(() => {
+                        navigate("/login")
+                      }, 3000);
+                    })
+              }
+              
+            })
         }
+        
         
     }
 
-    // console.log(data)
 
     return(
         <Box padding={"30px"} display={"flex"} justifyContent={"center"} gap="20px" mt="50px">
