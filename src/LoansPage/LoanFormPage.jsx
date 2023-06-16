@@ -11,6 +11,8 @@ import {
   Input,
   Select,
 } from '@chakra-ui/react';
+import axios from 'axios';
+
 // import backgroundImage from "./images/loan-background.png"
 
 
@@ -20,8 +22,8 @@ export function LoanFormPage() {
     backgroundImage: `url(${"./images/loan-background.jpg"})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
-    width: "100vw",
-    height: "100vh",
+    width: "100%",
+    height: "875px"
   }
 
   const [firstName, setFirstName] = useState('');
@@ -33,7 +35,7 @@ export function LoanFormPage() {
   const [interestRate, setInterestRate] = useState(0);
   const [aadharCard, setAadharCard] = useState(null);
   const [error, setError] = useState('');
-  
+
   const handleLoanTypeChange = (event) => {
     const selectedLoanType = event.target.value;
   setLoanType(selectedLoanType);
@@ -71,18 +73,36 @@ export function LoanFormPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    let username = firstName+" "+lastName
     // Perform form submission or validation here
-    // You can access the form data in the respective state variables
-    console.log({
-      firstName,
-      lastName,
+    // You can access the form data in the respective state variable
+    const obj = {
+      [username] : {
       dob,
       loanType,
       loanTenure,
       loanAmount,
       aadharCard,
-    });
+      }
+    }
+
+    axios.post("https://creditguru.onrender.com/users2",obj).then((res)=>{
+      console.log(res.data)
+    })
+    reset()
   };
+
+  function reset (){
+    setFirstName("");
+    setLastName("");
+    setDOB("");
+    setLoanAmount("");
+    setLoanTenure("");
+    setLoanType("");
+    setInterestRate(0);
+    setAadharCard(null);
+    setError("");
+  }
 
   return (<>
     <div style={divStyles}>
