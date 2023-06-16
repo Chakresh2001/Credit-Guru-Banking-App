@@ -1,17 +1,17 @@
-import { GET_AUTH_FAILURE, GET_AUTH_REQUEST, GET_AUTH_SUCCESS } from "../actionType"
+import { GET_AUTH_FAILURE, GET_AUTH_REQUEST, GET_AUTH_SUCCESS, LOGOUT_SUCCESS } from "../actionType"
 
 const initialState = {
-    loading : false,
+    name : "",
     isAuth: false,
     error : null
 }
 
-export const reducer = (state=initialState,{type})=>{
+export const reducer = (state=initialState,{type,payload})=>{
     switch(type){
         case GET_AUTH_REQUEST : {
             return {
                 ...state,
-                loading : true,
+                name:"",
                 isAuth: false,
                 error : false
             }
@@ -19,7 +19,7 @@ export const reducer = (state=initialState,{type})=>{
         case GET_AUTH_SUCCESS : {
             return {
                 ...state,
-                loading : false,
+                name:payload,
                 isAuth: true,
                 error : false
             }
@@ -27,12 +27,18 @@ export const reducer = (state=initialState,{type})=>{
         case GET_AUTH_FAILURE : {
             return {
                 ...state,
-                loading : false,
+                name:"",
                 isAuth: false,
                 error : true
             }
         }
-
+        case LOGOUT_SUCCESS :{
+            return {
+                name:"",
+                isAuth: false,
+                error : false
+            }
+        }
 
         default : return {state}
     }

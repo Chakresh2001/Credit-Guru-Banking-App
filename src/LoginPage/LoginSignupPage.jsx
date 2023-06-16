@@ -5,6 +5,8 @@ import { Box, useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthStatus } from '../Redux/AuthReducer/action';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { getSignUp } from '../Redux/SiginUpReducer/action';
+import useSelection from 'antd/es/table/hooks/useSelection';
 
 
 const ini = {
@@ -18,85 +20,109 @@ const ini = {
 
 const reducer = (state,action)=>{
     switch(action.type){
-            case 'LOGIN':
-                return {
-                  ...state,
-                    user: action.payload
-                }
-            case 'LOGOUT':
-                return {
-                  ...state,
-                    user: null
-                }
-            default:
-                return state
+
+        case "CHANGE" : {
+            return {
+              ...state,
+                [action.payload.name] : action.payload.value
+            }
         }
+        case "RESET" :{
+            return {...ini}
+        }
+            
+    default: return state
+    
+}
 }
 
 export const LoginSignupPage = () => {
     const [signIn, toggle] = React.useState(true);
-
     const [mail,setMail] = useState("")
     const [password,setpassword] = useState("")
-
-    const AuthValues = useSelector((store)=>store.authReducer)
-
+    const [check,setcheck] = useState("")
     const dispatch = useDispatch()
-
-    // let navigate = useNavigate()
-    // let toast = useToast()
-
-    let [state,dis] = useReducer(reducer,ini)
-
-    let handleChange = (e)=>{
-        let {value, name} = e.target
-
-        
-    }
-
-    let handleLogin = (e)=>{
-        e.preventDefault()
-        dispatch(getAuthStatus(mail,password))
-        
-    }
+    const navigate = useNavigate()
+    const toast = useToast()
     
-    // if(AuthValues.isAuth){
-    //     toast({
-    //         title: 'SUCCESFULLY LOGGED IN',
-    //         status: 'success',
-    //         duration: 2000,
-    //         position:"top-right",
-    //         isClosable: true,
-    //       })
-    //       setTimeout(() => {
-    //         navigate("/")
-    //       }, 3000);
-    // }
+    const [state,dis] = useReducer(reducer,ini)
 
-    // if(AuthValues.error){
-    //     toast({
-    //         title: 'WRONG CREDENTIALS',
-    //         status: 'error',
-    //         duration: 2000,
-    //         position:"top-right",
-    //         isClosable: true,
-    //       })
-    // }
+    
+    const handleLogin = (e)=>{
+        e.preventDefault()
+        dispatch(getAuthStatus(mail,password)).then((res)=>{
+            if(res==1){
+                toast({
+                    title: 'SUCCESFULLY LOGGED IN',
+                    status: 'success',
+                    duration: 2000,
+                    position:"top-right",
+                    isClosable: true,
+                  })
+                  setTimeout(() => {
+                    navigate("/")
+                  }, 3000);
+            }
+            else{
+                toast({
+                    title: 'WRONG CREDENTIALS',
+                    status: 'error',
+                    duration: 2000,
+                    position:"top-right",
+                    isClosable: true,
+                  })
+            }
+        })
+        
+        
+    }
 
+    const handleChange = (e)=>{
+        const {value, name} = e.target
+
+        let obj = {
+            name : name,
+            value : value
+        }
+        dis({type:"CHANGE", payload:obj})
+    }
+
+
+    let handleSignUp = (e)=>{
+        e.preventDefault()
+
+        if(check!==state.password){
+            toast({
+              title: 'Password Mismatch',
+              description:"Password and Confirm Password Mismatch",
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position:"top-right"
+            })
+        }
+        else{
+            dispatch(getSignUp(state))
+            
+        }
+        
+    }
+
+    // console.log(data)
 
     return(
         <Box padding={"30px"} display={"flex"} justifyContent={"center"} gap="20px" mt="50px">
             <Components.Container>
             <Components.SignUpContainer signinIn={signIn}>
-                <Components.Form>
+                <Components.Form onSubmit={handleSignUp}>
                     <Components.Title>Create Account</Components.Title>
-                    <Components.Input type='text' placeholder='Name'  />
-                    <Components.Input type='email' placeholder='Email' />
-                    <Components.Input type='password' placeholder='Password' />
-                    <Components.Input type='text' placeholder='Confirm Password' />
-                    <Components.Input type='text' placeholder='Phone No.' />
-                    <Components.Input type='text' placeholder='Address' />
-                    <Components.Input type='text' placeholder='Date Of Birth' />
+                    <Components.Input type='text' placeholder='Name' name="name" value={state.name} onChange={handleChange}/>
+                    <Components.Input type='email' placeholder='Email' name="mail" value={state.mail} onChange={handleChange}/>
+                    <Components.Input type='password' placeholder='Password' name="password" value={state.password} onChange={handleChange}/>
+                    <Components.Input type='text' placeholder='Confirm Password' name="check" value={check} onChange={(e)=>setcheck(e.target.value)} />
+                    <Components.Input type='text' placeholder='Phone No.' name="phoneNo" value={state.phoneNo} onChange={handleChange}/>
+                    <Components.Input type='text' placeholder='Address' name="address" value={state.address} onChange={handleChange}/>
+                    <Components.Input type='text' placeholder='Date Of Birth' name="dob" value={state.dob} onChange={handleChange}/>
                     <Components.Button>Sign Up</Components.Button>
                 </Components.Form>
             </Components.SignUpContainer>

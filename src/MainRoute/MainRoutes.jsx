@@ -11,6 +11,7 @@ import { Footer } from './Footer'
 import { MoneyPage } from '../Money/MoneyPage'
 import { LoginSignupPage } from '../LoginPage/LoginSignupPage'
 import { LoanFormPage } from '../LoansPage/LoanFormPage'
+import { PrivateRoute } from './PrivateRoute'
 
 
 
@@ -25,7 +26,7 @@ export const MainRoutes = () => {
 
       <Route path="/loans" element={<LoansPage/>} />
 
-       <Route path="/loan-form" element={<LoanFormPage/>} />
+       <Route path="/loan-form" element={<PrivateRoute><LoanFormPage/></PrivateRoute>} />
 
       <Route path='/money' element={<MoneyPage/>}/>
 

@@ -1,21 +1,32 @@
 import axios from "axios"
-import { GET_AUTH_FAILURE, GET_AUTH_REQUEST, GET_AUTH_SUCCESS } from "../actionType"
+import { GET_AUTH_FAILURE, GET_AUTH_REQUEST, GET_AUTH_SUCCESS, LOGOUT_SUCCESS } from "../actionType"
 
-
-export const getAuthStatus = (mail,password) => (dispatch)=>{
+export const getAuthStatus = (mail,password) => async(dispatch)=>{
     dispatch({type:GET_AUTH_REQUEST})
     
-    axios.get('https://zealous-ant-smock.cyclic.app/users')
+   let res = await axios.get('https://fair-pink-gecko.cyclic.app/users')
     .then((res)=>{
-        let response = res.data
-        response.map((ele)=>{
-            if(ele.mail === mail && ele.password === password){
-                dispatch({type:GET_AUTH_SUCCESS})
-            }
-        })
+      let data = res?.data
+      
+      let result = data.filter((ele)=>{
+        if(ele.mail==mail && ele.password==password){
+          return true
+        }
+        else{
+          return false
+        }
+      })
+      dispatch({type:GET_AUTH_SUCCESS,payload:result[0].name})
+      return result.length
     })
-    .then((err)=>{
+    .catch((err)=>{
         dispatch({type:GET_AUTH_FAILURE})
     })
+
+    return res
         
 }   
+
+export const LogoutSuccess = ()=>(dispatch)=>{
+  dispatch({type:LOGOUT_SUCCESS})
+}
