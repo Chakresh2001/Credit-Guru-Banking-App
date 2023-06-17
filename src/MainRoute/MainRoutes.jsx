@@ -13,10 +13,14 @@ import { LoginSignupPage } from '../LoginPage/LoginSignupPage'
 import { LoanFormPage } from '../LoansPage/LoanFormPage'
 import { PrivateRoute } from './PrivateRoute'
 import LoanTenure from '../Calculators/LoanTenure'
+
+import { CreditCardApplicationForm } from '../CreditCardPage/CreditCardApplicationForm'
+
 import { UserCreditCard } from '../UserCreditCards/UserCreditCard'
 import { UserLoans } from '../UserLoans/UserLoans'
 import { AdminLogin } from '../AdminPage/AdminLogin'
 import { AdminHome } from '../AdminPage/AdminHome'
+
 
 
 
@@ -41,6 +45,9 @@ export const MainRoutes = () => {
 
       <Route path="/loan-calculator" element={<LoanTenure/>} />
 
+
+      <Route path="/credit-cards-form" element={<CreditCardApplicationForm/>} />
+
       <Route path="/user-loans" element={<UserLoans/>}/>
 
       <Route path="/user-credit-cards" element={<UserCreditCard/>}/>
@@ -48,6 +55,7 @@ export const MainRoutes = () => {
       <Route path="admin" element={<AdminLogin/>}/>
 
       <Route path="admin-Home" element={<AdminHome/>}/>
+
 
      </Routes>
      <Footer/>
