@@ -50,7 +50,7 @@ export const Navbar = () => {
             <Link className='onHover-NavLink'>Home</Link>
             <Link className='onHover-NavLink' to="/money" >Money</Link>
             <Link className='onHover-NavLink' to={"/loan-calculator"}>EMI Calculator</Link>
-            <Link className='onHover-NavLink'>Credit Scores</Link>
+            <Link className='onHover-NavLink' to={"/credit-score"}>Credit Scores</Link>
             
          </Flex>
          <Flex w="20%" textAlign={"center"} justifyContent={"space-evenly"}>
