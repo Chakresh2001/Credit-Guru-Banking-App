@@ -112,6 +112,7 @@ export function LoanFormPage() {
       loanTenure,
       loanAmount,
       aadharCard,
+      status : false,
       }
     }
     axios.post("https://creditguru.onrender.com/users2", obj).then((res)=>{

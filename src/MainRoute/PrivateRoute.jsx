@@ -3,14 +3,18 @@ import { useSelector } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
 
 export const PrivateRoute = ({children}) => {
-
-  const data = useSelector((store)=>store.authReducer)
   
   let location = useLocation()
-  const {isAuth} = data
-
-  if(!isAuth){
-    return <Navigate to="/login" state={location.pathname} replace={true} />
+  const isAuth = localStorage.getItem('isAuth')
+  let logged;
+  if(isAuth=="true"){
+    logged = true;
+  }
+  else{
+    logged = false;
+  }
+  if(!logged){
+    return <Navigate to="/login" />
   }
 
   return (
