@@ -13,6 +13,7 @@ import { LoginSignupPage } from '../LoginPage/LoginSignupPage'
 import { LoanFormPage } from '../LoansPage/LoanFormPage'
 import { PrivateRoute } from './PrivateRoute'
 import LoanTenure from '../Calculators/LoanTenure'
+import { CreditCardApplicationForm } from '../CreditCardPage/CreditCardApplicationForm'
 
 
 
@@ -36,6 +37,8 @@ export const MainRoutes = () => {
       <Route path="/credit-cards" element={<CreditCardPage/>} />
 
       <Route path="/loan-calculator" element={<LoanTenure/>} />
+
+      <Route path="/credit-cards-form" element={<CreditCardApplicationForm/>} />
 
      </Routes>
      <Footer/>
