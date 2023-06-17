@@ -45,7 +45,7 @@ export function LoanFormPage() {
   const [loanTenure, setLoanTenure] = useState('');
   const [loanAmount, setLoanAmount] = useState('');
   const [interestRate, setInterestRate] = useState(0);
-  const [aadharCard, setAadharCard] = useState(null);
+  const [file, setFile] = useState(null);
   const [error, setError] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate()
@@ -93,9 +93,9 @@ export function LoanFormPage() {
     setLoanAmount(event.target.value);
   };
 
-  const handleAadharCardUpload = (event) => {
-    const file = event.target.files[0];
-    setAadharCard(file);
+  const handleFileUpload = (event) => {
+    const uploadedFile = event.target.files[0];
+    setFile(uploadedFile);
   };
 
   const handleSubmit = (event) => {
@@ -111,7 +111,7 @@ export function LoanFormPage() {
       loanType,
       loanTenure,
       loanAmount,
-      aadharCard,
+      file,
       }
     }
     axios.post("https://creditguru.onrender.com/users2", obj).then((res)=>{
@@ -120,20 +120,24 @@ export function LoanFormPage() {
     reset()
   };
 
+
   if(isOpen){
     setTimeout(() => {
       onClose();
       navigate('/');
     }, 3000);
 
+
   }
 
 
   return (<>
     <div style={divStyles}>
-    <Heading color="#33FF8A" textAlign="center" ml="500px">Loan Form</Heading>
+
+    <Heading color="#33FF8A" textAlign="right" mr="13%">Loan Form</Heading>
+
     <ChakraProvider>
-      <Container maxW="md" mt={2} ml="800px">
+      <Container maxW="md" mt={2} ml="65%">
         
         <Box p={6} boxShadow="md" rounded="md" backgroundColor="white" >
           <form onSubmit={handleSubmit}>
@@ -221,11 +225,11 @@ export function LoanFormPage() {
 
             <FormControl isRequired mb={4}>
               <FormLabel>Aadhar Card Upload</FormLabel>
-              <Input
-                type="file"
-                accept=".pdf, .jpg, .jpeg, .png"
-                onChange={handleAadharCardUpload}
-              />
+                <Input
+                  type="file"
+                  accept=".pdf, .jpg"
+                  onChange={handleFileUpload}
+                />
             </FormControl>
 
             {error && (
