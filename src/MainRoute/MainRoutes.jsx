@@ -18,6 +18,8 @@ import { CreditCardApplicationForm } from '../CreditCardPage/CreditCardApplicati
 
 import { UserCreditCard } from '../UserCreditCards/UserCreditCard'
 import { UserLoans } from '../UserLoans/UserLoans'
+import { AdminLogin } from '../AdminPage/AdminLogin'
+import { AdminHome } from '../AdminPage/AdminHome'
 
 
 
@@ -49,6 +51,10 @@ export const MainRoutes = () => {
       <Route path="/user-loans" element={<UserLoans/>}/>
 
       <Route path="/user-credit-cards" element={<UserCreditCard/>}/>
+
+      <Route path="admin" element={<AdminLogin/>}/>
+
+      <Route path="admin-Home" element={<AdminHome/>}/>
 
 
      </Routes>
