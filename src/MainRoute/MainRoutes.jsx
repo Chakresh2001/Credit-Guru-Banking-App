@@ -46,7 +46,7 @@ export const MainRoutes = () => {
       <Route path="/loan-calculator" element={<LoanTenure/>} />
 
 
-      <Route path="/credit-cards-form" element={<CreditCardApplicationForm/>} />
+      <Route path="/credit-cards-form" element={<PrivateRoute><CreditCardApplicationForm/></PrivateRoute>} />
 
       <Route path="/user-loans" element={<UserLoans/>}/>
 

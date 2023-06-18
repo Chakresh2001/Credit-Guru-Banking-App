@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { UserDisplayCard } from "./UserDisplayCard";
 import "./AdminUserCard.css"
 import { CreditCardsDisplay } from "./CreditCardsDisplay";
+import { AddCards } from "./AddCards";
 
 export const AdminHome = () => {
 
@@ -76,9 +77,9 @@ export const AdminHome = () => {
 
   return (
     <div>
-      <Box>
+      <Box mt="50px">
         <Tabs variant="soft-rounded" colorScheme="green">
-          <TabList>
+          <TabList >
             <Tab>Registered Users</Tab>
             <Tab>Loans</Tab>
             <Tab>Credit Cards</Tab>
@@ -86,7 +87,7 @@ export const AdminHome = () => {
           </TabList>
           <TabPanels>
             <TabPanel>
-               <Text textAlign={"center"}>REGISTERED USERES OF CREDITGURU</Text>
+               <Text mb="50px" fontWeight={"bold"} fontSize={"22px"} textAlign={"center"}>REGISTERED USERES OF CREDITGURU</Text>
               <Box className="userDisplayCard" >
             
               
@@ -105,11 +106,11 @@ export const AdminHome = () => {
             <TabPanel>
             {
                 loanData.length <= 0 ? (
-                    <Text textAlign={"center"}>NO LOANS YET</Text>
+                    <Text mb="50px" fontWeight={"bold"} fontSize={"22px"} textAlign={"center"}>NO LOANS YET</Text>
                   ) : (
                     <>
 
-                    <Text textAlign={"center"}>LOANS STATUS OF USERS</Text>
+                    <Text mb="50px" fontWeight={"bold"} fontSize={"22px"} textAlign={"center"}>LOANS STATUS OF USERS</Text>
                     <Box className="userDisplayCard" >
                     {loanData.map((loan, index) => {
                         const name = Object.keys(loan)[0]
@@ -133,11 +134,11 @@ export const AdminHome = () => {
             <TabPanel>
               {
                 cardData.length <= 0? (
-                  <Text textAlign={"center"}>NO CREDIT CARD YET</Text>
+                  <Text mb="50px" fontWeight={"bold"} fontSize={"22px"} textAlign={"center"}>NO CREDIT CARD YET</Text>
                   ) : (
                       <>
 
-                    <Text textAlign={"center"}>CREDIT CARDS OF USERS</Text>
+                    <Text mb="50px" fontWeight={"bold"} fontSize={"22px"} textAlign={"center"}>CREDIT CARDS OF USERS</Text>
 
                       <Box className="userDisplayCard">
 
@@ -156,7 +157,8 @@ export const AdminHome = () => {
               }
             </TabPanel>
             <TabPanel>
-              <h1>Add cards</h1>
+            <Text mb="50px" fontWeight={"bold"} fontSize={"22px"} textAlign={"center"}>ADD NEW CARD</Text>
+              <AddCards getCreditCards={getCreditCards}/>
             </TabPanel>
           </TabPanels>
         </Tabs>

@@ -96,7 +96,7 @@ export const Navbar = () => {
 
             {
                adminAuth=="true" ? (
-                  <Button to="#" style={{color:"red"}} className='onHover-NavLink' onClick={adminLogOut}>Log Out</Button>
+                  <Link to="#" style={{color:"red"}} className='onHover-NavLink' onClick={adminLogOut}>Log Out</Link>
                ) : (
                   <Link  className='onHover-NavLink' to="/admin">Admin</Link>
                )
