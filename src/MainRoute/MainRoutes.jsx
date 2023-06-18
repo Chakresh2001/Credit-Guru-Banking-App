@@ -18,6 +18,9 @@ import { CreditCardApplicationForm } from '../CreditCardPage/CreditCardApplicati
 
 import { UserCreditCard } from '../UserCreditCards/UserCreditCard'
 import { UserLoans } from '../UserLoans/UserLoans'
+
+import { CreditScorePage } from '../CreditScore/CreditScorePage'
+
 import { AdminLogin } from '../AdminPage/AdminLogin'
 import { AdminHome } from '../AdminPage/AdminHome'
 
@@ -41,9 +44,16 @@ export const MainRoutes = () => {
 
       <Route path="/credit-cards" element={<CreditCardPage/>} />
 
+      <Route path="/credit-score" element={<CreditScorePage/>} />
+
       <Route path="/loan-calculator" element={<LoanTenure/>} />
 
+
       <Route path="/credit-cards-form/:id" element={<CreditCardApplicationForm/>} />
+
+
+      <Route path="/credit-cards-form" element={<PrivateRoute><CreditCardApplicationForm/></PrivateRoute>} />
+
 
       <Route path="/user-loans" element={<UserLoans/>}/>
 
