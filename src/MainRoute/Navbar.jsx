@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Text, useToast } from '@chakra-ui/react'
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import "./Navbar.css"
 import {
    Menu,
@@ -20,9 +20,12 @@ import { LogoutSuccess } from '../Redux/AuthReducer/action'
 export const Navbar = () => {
 
    const data = useSelector((store)=>store.authReducer)
-   const {name, isAuth} = data
+   const isAuth = localStorage.getItem('isAuth')
+   const name = localStorage.getItem('name')
+   const adminAuth = localStorage.getItem('adminAuth')
    const toast = useToast()
    let dispatch = useDispatch()
+   let navigate = useNavigate()
 
    // console.log(name, isAuth)
 
@@ -37,6 +40,19 @@ export const Navbar = () => {
        })
    }
 
+   let adminLogOut = ()=>{
+      localStorage.removeItem("adminAuth");
+      toast({
+         title: 'Logged out',
+         status: 'error',
+         duration: 2000,
+         position:"top-right",
+         isClosable: true,
+       })
+       navigate("/login")
+   }
+
+   
 
 
   return (
@@ -45,7 +61,7 @@ export const Navbar = () => {
          <Flex padding={"10px"} h="60px" w="100%" justifyContent={"space-between"} alignItems={"center"}>
             <Link to={"/"} style={{color:"#008701", width:"10%"}}> <span style={{fontWeight:"bold", fontSize:"25px"}}>creditGuru</span> </Link>
          <Flex mr="500px" w="50%" justifyContent={"space-evenly"}>
-            <Link to={"/credit-cards"} className='onHover-NavLink'>Credit Card</Link>
+            <Link className='onHover-NavLink' to={"/credit-cards"} >Credit Card</Link>
             <Link className='onHover-NavLink' to={"/loans"}>Loan</Link>
             <Link className='onHover-NavLink'>Home</Link>
             <Link className='onHover-NavLink' to="/money" >Money</Link>
@@ -56,7 +72,7 @@ export const Navbar = () => {
          <Flex w="20%" textAlign={"center"} justifyContent={"space-evenly"}>
 
             {
-               isAuth ? (
+               isAuth=="true"  ? (
                   <Menu>
             <MenuButton as={Button} backgroundColor='#8DDD76' _hover={{backgroundColor:"#8DDD76"}}>
                {name}
@@ -64,14 +80,26 @@ export const Navbar = () => {
             <MenuList>
                <MenuGroup title='Profile'>
                   <Link to="/user-credit-cards" ><MenuItem>My Cards</MenuItem></Link>
-                  <Link to="/user-loans"><MenuItem>Loans </MenuItem></Link>
                   <MenuItem onClick={handleClick}>Sign Out </MenuItem>
                </MenuGroup>
             </MenuList>
             </Menu>
                ) : ( 
-            <Link  className='onHover-NavLink' to="/login">Login / Sign Up</Link>
-            )
+                 
+                  
+                         <Link  className='onHover-NavLink' to="/login">Sign Up</Link>
+                  
+                  
+                
+               )
+            }
+
+            {
+               adminAuth=="true" ? (
+                  <Link to="#" style={{color:"red"}} className='onHover-NavLink' onClick={adminLogOut}>Log Out</Link>
+               ) : (
+                  <Link  className='onHover-NavLink' to="/admin">Admin</Link>
+               )
             }
             <Link className='onHover-NavLink'>Help</Link>
          </Flex>

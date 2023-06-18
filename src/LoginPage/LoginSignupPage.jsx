@@ -13,7 +13,8 @@ const ini = {
     password : "",
     dob : "",
     address : "",
-    phoneNo : ""
+    phoneNo : "",
+    card : [],
 }
 
 const reducer = (state,action)=>{
@@ -41,9 +42,9 @@ export const LoginSignupPage = () => {
     const [check,setcheck] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const toast = useToast()
-    const data = useSelector((store)=>store.authReducer)
-    const {isAuth} = data
+    const toast = useToast();
+    const logged = localStorage.getItem('isAuth')
+
     
     let location = useLocation()
     
@@ -143,12 +144,12 @@ export const LoginSignupPage = () => {
     }
 
     useEffect(()=>{
-        if(isAuth){
+        if(logged=="true"){
             setTimeout(() => {
                 navigate(location.state)
             }, 3000);
         }
-      },[isAuth])
+      },[logged])
 
 
     return(

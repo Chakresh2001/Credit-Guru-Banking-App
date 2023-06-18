@@ -1,8 +1,8 @@
 import { GET_AUTH_FAILURE, GET_AUTH_REQUEST, GET_AUTH_SUCCESS, LOGOUT_SUCCESS } from "../actionType"
 
 const initialState = {
-    name : "",
-    isAuth: false,
+    name : localStorage.getItem('name')||"",
+    isAuth: localStorage.getItem('isAuth')||"",
     error : null
 }
 
@@ -17,14 +17,18 @@ export const reducer = (state=initialState,{type,payload})=>{
             }
         }
         case GET_AUTH_SUCCESS : {
+            localStorage.setItem("name", payload);
+            localStorage.setItem("isAuth", true);
             return {
                 ...state,
-                name:payload,
-                isAuth: true,
+                name:localStorage.getItem('name'),
+                isAuth: localStorage.getItem('isAuth'),
                 error : false
             }
         }
         case GET_AUTH_FAILURE : {
+            localStorage.removeItem("name");
+            localStorage.removeItem("isAuth");
             return {
                 ...state,
                 name:"",
@@ -33,6 +37,8 @@ export const reducer = (state=initialState,{type,payload})=>{
             }
         }
         case LOGOUT_SUCCESS :{
+            localStorage.removeItem("name");
+            localStorage.removeItem("isAuth");
             return {
                 name:"",
                 isAuth: false,
