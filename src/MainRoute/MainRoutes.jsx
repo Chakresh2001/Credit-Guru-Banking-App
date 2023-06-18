@@ -23,6 +23,7 @@ import { CreditScorePage } from '../CreditScore/CreditScorePage'
 
 import { AdminLogin } from '../AdminPage/AdminLogin'
 import { AdminHome } from '../AdminPage/AdminHome'
+// import CreditCardGenerator from '../CreditCardPage/CreditCardNumberGenerator'
 
 
 export const MainRoutes = () => {
@@ -62,6 +63,8 @@ export const MainRoutes = () => {
       <Route path="admin" element={<AdminLogin/>}/>
 
       <Route path="admin-Home" element={<AdminHome/>}/>
+
+      {/* <Route path="/credit-card-generator" element={<CreditCardGenerator/>} /> */}
     </Routes>
      <Footer/>
 

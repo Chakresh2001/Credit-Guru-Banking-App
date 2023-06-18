@@ -2,14 +2,16 @@ import { Box, Button, Flex, Text, Accordion, AccordionItem, AccordionButton, Acc
 import { StarIcon, CheckIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { CreditCardApplicationForm } from "../CreditCardApplicationForm";
 
 export const ProductCard = ({ data }) => {
-    const [selectedBankId, setSelectedBankId] = useState(null);
+
+    const [onOpen, setOnOpen] = useState(false);
     // console.log("data",data.id)
     return <Box display="flex" width="80%" margin="auto" borderRadius="8px" padding="30px" boxShadow={"lg"} border={"1px solid #E2E8F0"} mt={"15px"}>
         <div style={{ width: "25%" }}>
             <img src={data.cardImg} alt={data.cardName} width={"85%"} />
-            <Link to={`/credit-cards-form/${data.id}`} ><Button key={data.id} onClick={()=>setSelectedBankId(data.id)} backgroundColor={"#008600"} color={"white"} width={"85%"} mt={"8px"}>Continue</Button></Link>
+            <CreditCardApplicationForm userId={data.id}/>
         </div>
         <div style={{ width: "75%" }}>
             <Text as={"b"} fontSize={"lg"}>{data.cardName}</Text>
@@ -82,5 +84,6 @@ export const ProductCard = ({ data }) => {
                 </div>
             })}
         </div>
+        {/* <CreditCardApplicationForm /> */}
     </Box>
 }
