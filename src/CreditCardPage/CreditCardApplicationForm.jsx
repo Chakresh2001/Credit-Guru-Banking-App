@@ -126,7 +126,7 @@ export const CreditCardApplicationForm = ({userId}) => {
       
       console.log(userData[i].card,"cardss")
       axios.patch(`https://creditguru.onrender.com/users/${userData[i].id}`,{
-        card:[{
+        card:[...userData[i].card,{
           cardNumber: formData.cardNumber,
           cvv:formData.cvv,
           expire:formData.expiryDate,
