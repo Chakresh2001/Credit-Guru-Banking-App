@@ -1,12 +1,15 @@
 import { Box, Button, Flex, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon } from "@chakra-ui/react"
 import { StarIcon, CheckIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export const ProductCard = ({ data }) => {
+    const [selectedBankId, setSelectedBankId] = useState(null);
+    // console.log("data",data.id)
     return <Box display="flex" width="80%" margin="auto" borderRadius="8px" padding="30px" boxShadow={"lg"} border={"1px solid #E2E8F0"} mt={"15px"}>
         <div style={{ width: "25%" }}>
             <img src={data.cardImg} alt={data.cardName} width={"85%"} />
-            <Link to={"/credit-cards-form"}><Button backgroundColor={"#008600"} color={"white"} width={"85%"} mt={"8px"}>Continue</Button></Link>
+            <Link to={`/credit-cards-form/${data.id}`} ><Button key={data.id} onClick={()=>setSelectedBankId(data.id)} backgroundColor={"#008600"} color={"white"} width={"85%"} mt={"8px"}>Continue</Button></Link>
         </div>
         <div style={{ width: "75%" }}>
             <Text as={"b"} fontSize={"lg"}>{data.cardName}</Text>

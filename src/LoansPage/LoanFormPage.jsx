@@ -35,7 +35,7 @@ export function LoanFormPage() {
     backgroundSize: "cover",
     backgroundPosition: "center",
     width: "100vw",
-    height: "100vh",
+    height: "900px",
   }
 
   const [firstName, setFirstName] = useState('');
@@ -45,7 +45,7 @@ export function LoanFormPage() {
   const [loanTenure, setLoanTenure] = useState('');
   const [loanAmount, setLoanAmount] = useState('');
   const [interestRate, setInterestRate] = useState(0);
-  const [file, setFile] = useState(null);
+  const [aadharCard, setAadharCard] = useState(null);
   const [error, setError] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate()
@@ -95,14 +95,14 @@ export function LoanFormPage() {
 
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
-    setFile(uploadedFile);
+    setAadharCard(uploadedFile);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Perform form submission or validation here
     // You can access the form data in the respective state variables
-    let UserName = firstName
+    let UserName = firstName+" "+lastName
     let obj = {
       [UserName] : {
       firstName,
@@ -113,7 +113,6 @@ export function LoanFormPage() {
       loanAmount,
       aadharCard,
       status : false,
-        file,
       }
     }
     axios.post("https://creditguru.onrender.com/users2", obj).then((res)=>{
