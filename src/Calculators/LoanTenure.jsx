@@ -70,7 +70,9 @@ import {
   Tr,
   Th,
   Td,
+  Center,
 } from '@chakra-ui/react';
+import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
 const LoanTenure = () => {
   const [emi, setEmi] = useState(25000);
@@ -92,7 +94,7 @@ const LoanTenure = () => {
     const apr = ((1 + (r/N))**(N*1)) - 1;
     console.log(apr,"apr")
 
-    const totalInterestPayable = parseFloat(principal) * (parseFloat(interestRate) / 100);
+    const totalInterestPayable = parseFloat(principal) * (parseFloat(r));
 
     const totalPaymentAmount = parseFloat(principal) + parseFloat(totalInterestPayable) + parseFloat(feeCharges);
 
@@ -106,8 +108,11 @@ const LoanTenure = () => {
     setTotalPayment(totalPaymentAmount.toFixed(2));
   };
 
+
+
   return (
-    <Box p={4}>
+    <Center>
+    <Box p={4} maxW="60%" >
       <h2>Loan Amount Calculator</h2>
       <Box mb={4}>
         <label>
@@ -164,8 +169,8 @@ const LoanTenure = () => {
             <Tr>
               <Th>Loan Amount</Th>
               <Th>Loan APR</Th>
-              <Th>Total Interest Payable</Th>
-              <Th>Total Payment</Th>
+              <Th>Total Interest Payable (per year)</Th>
+              <Th>Total Payment (including one time processing fee)</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -179,7 +184,8 @@ const LoanTenure = () => {
         </Table>
       </Box>
     </Box>
-  );
+    </Center>
+  )
 };
 
 export default LoanTenure;

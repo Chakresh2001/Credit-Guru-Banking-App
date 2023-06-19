@@ -1,19 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Container, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Input, Select, Stack } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCreditCards } from '../Redux/CardPageReducer/action';
+import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react"
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
-export const CreditCardApplicationForm = () => {
-  const {id} = useParams();
-  const dispatch = useDispatch();
-  const cards = useSelector((store) => store.creditCardReducer.cards)
-  console.log(cards)
- 
-  const selectedBank = cards.find((bank) => bank.id === parseInt(id));
+export const CreditCardApplicationForm = ({userId}) => {
+  // const {id} = useParams();
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const initialRef = React.useRef(null)
+  const finalRef = React.useRef(null)
   
+  const [cardNumber, setCardNumber] = useState('');
+  const [cvv, setCVV] = useState('');
+  const [expiryDate, setExpiryDate] = useState('');
+  const [generationDate, setGenerationDate] = useState('');
+
+  const [userData,setUserData] = useState([])
+  
+
+  const [formErrors, setFormErrors] = useState({});
+
+  const [data,setData] = useState({});
+
+  
+  const fetchandRender = () => {
+    
+    axios.get(`https://creditguru.onrender.com/cards/${userId}`).then((res)=> {
+      setData(res.data);
+    // console.log(res.data.bankName)
+
+    })
+    onOpen()
+    // console.log(formData,"xyz")
+    // console.log(data.bankName)
+  }
+
+//   useEffect(() => {
+//     fetchandRender()
+// }, []);
+
   const divStyles = {
-    backgroundImage: `url(${"./images/education loan.png"})`,
+    backgroundColor: "yellow",
+    backgroundImage: `url(${"./images/credit-card-background.jpg"})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     width: "100%",
@@ -21,46 +49,100 @@ export const CreditCardApplicationForm = () => {
   }
   const username = localStorage.getItem('name');
   
-
   const obj ={
     name: username,
     email: '',
     phoneNumber: '',
+    bankName:'',
+    cardName:'',
     income: '',
-    cardName: selectedBank.cardName,
-    bankName: selectedBank.bankName,
     panCard: null,
+    aadharCard:null
   }
 
+  useEffect(()=>{
+    axios.get("https://creditguru.onrender.com/users").then((res)=>setUserData(res.data))
+  },[])
+ 
 
   const [formData, setFormData] = useState(obj);
 
-  const [formErrors, setFormErrors] = useState({});
-
-  useEffect(() => {
-    dispatch(getCreditCards(obj))
-}, []);
+  const [cardDetails,setCardDetails] = useState({})
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-    }));
+    }))
   };
 
   const handlePanCardUpload = (e) => {
+    
     const file = e.target.files[0];
     setFormData((prevData) => ({
       ...prevData,
       panCard: file,
     }));
+    
+    setFormData((prev)=>({
+      ...prev,
+      bankName:data.bankName,
+      cardName:data.cardName,
+      cardNumber,cvv,expiryDate,generationDate
+    }))
   };
+
+  const handleAadharCardUpload= (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      aadharCard: file,
+    }));
+    const randomCardNumber = Array.from({ length: 16 }, () =>
+      Math.floor(Math.random() * 10)
+    ).join('');
+    const randomCVV = Math.floor(Math.random() * 900 + 100).toString();
+    const currentDate = new Date();
+    const randomExpiryMonth = Math.floor(Math.random() * 12 + 1);
+    const randomExpiryYear = currentDate.getFullYear() + Math.floor(Math.random() * 5 + 1);
+    const randomExpiryDate = `${randomExpiryMonth}/${randomExpiryYear}`;
+
+    const formattedCardNumber = formatCardNumber(randomCardNumber);
+
+    setCardNumber(formattedCardNumber);
+    setCVV(randomCVV);
+    setExpiryDate(randomExpiryDate);
+    setGenerationDate(currentDate.toDateString());
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-
+    
+    console.log(formData,"ini")
+    for(let i=0;i<userData.length;i++){
+    if(userData[i].name === username){
+      
+      console.log(userData[i].card,"cardss")
+      axios.patch(`https://creditguru.onrender.com/users/${userData[i].id}`,{
+        card:[...userData[i].card,{
+          cardNumber: formData.cardNumber,
+          cvv:formData.cvv,
+          expire:formData.expiryDate,
+          bankName:formData.bankName,
+          bankCard:formData.cardName
+        }]
+      }
+      ).then((res)=>{
+        console.log("server",res.data)
+      })
+      console.log(userData[i].id,"id")
+    }
+  }
+    // if(formData.name===user){
+    // axios.post("https://creditguru.onrender.com/users/card",formData)
+    // }
     // Validate form data
     const errors = {};
     if (!formData.name) {
@@ -78,72 +160,89 @@ export const CreditCardApplicationForm = () => {
     if (!formData.cardName) {
       errors.cardName = 'Card Name is required';
     }
-    if (!formData.bankName) {
-      errors.bankName = 'Bank Name is required';
+    if(!formData.panCard) {
+      errors.panCard = 'Pan Card is Requires';
     }
-    if (!formData.panCard) {
-      errors.panCard = 'PAN Card is required';
+    if(!formData.aadharCard) {
+      errors.aadharCard = 'Aadhar Card is Requires';
     }
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
     } else {
       // Handle form submission logic here
-      console.log('Form submitted:', formData);
+      // console.log('Form submitted:', formData);
       // Reset form
       setFormData(obj);
       setFormErrors({});
     }
   };
 
+  const formatCardNumber = (cardNumber) => {
+    const formatted = cardNumber
+      .split('')
+      .map((digit, index) => (index !== 0 && index % 4 === 0 ? ' ' + digit : digit))
+      .join('');
+    return formatted;
+  }
+  
+  
   return (
-    <div style={divStyles}>
-      <Container maxW="md" pt="50px" ml="65%" >
-    <Box p={6} boxShadow="md" rounded="md" border="5px solid white">
-      <form onSubmit={handleSubmit}>
-        <Grid templateColumns="repeat(2, 1fr)" gap={4}>
-          <GridItem colSpan={2}>
+    <Box>
+        <Button  backgroundColor={"#008600"} color={"white"} width={"85%"} mt={"8px"} onClick={ fetchandRender}>Continue</Button>
+  
+        <Modal isCentered
+          initialFocusRef={initialRef}
+          finalFocusRef={finalRef}
+          size={"xl"}
+          isOpen={isOpen}
+          onClose={onClose}
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Create your account</ModalHeader>
+            <ModalCloseButton /><form>
+            <Flex>
+            <ModalBody >
+            
             <FormControl id="name" isRequired isInvalid={!!formErrors.name} isDisabled>
               <FormLabel color="#000000">Name</FormLabel>
-              <Input type="text" name="name" value={formData.name} border="1.5px dashed white" onChange={handleChange} />
+              <Input type="text" name="name" value={formData.name} border="1.5px dashed white"  />
               <FormErrorMessage>{formErrors.name}</FormErrorMessage>
             </FormControl>
-          </GridItem>
-          <GridItem colSpan={2}>
+          
+          
             <FormControl id="email" isRequired isInvalid={!!formErrors.email}>
               <FormLabel color="#000000">Email</FormLabel>
               <Input type="email" name="email" value={formData.email} border="1.5px dashed white" onChange={handleChange} />
               <FormErrorMessage>{formErrors.email}</FormErrorMessage>
             </FormControl>
-          </GridItem>
-          <GridItem colSpan={2}>
+        
+          
             <FormControl id="phoneNumber" isRequired isInvalid={!!formErrors.phoneNumber}>
               <FormLabel color="#000000">Phone Number</FormLabel>
               <Input type="text" name="phoneNumber" value={formData.phoneNumber} border="1.5px dashed white" onChange={handleChange} />
               <FormErrorMessage>{formErrors.phoneNumber}</FormErrorMessage>
             </FormControl>
-          </GridItem>
-          <GridItem>
+          
             <FormControl id="income" isRequired isInvalid={!!formErrors.income}>
               <FormLabel color="#000000">Income</FormLabel>
               <Input type="text" name="income" value={formData.income} border="1.5px dashed white" onChange={handleChange} />
               <FormErrorMessage>{formErrors.income}</FormErrorMessage>
             </FormControl>
-          </GridItem>
-          <GridItem colSpan={2}>
-            <FormControl id="bankName" isRequired isInvalid={!!formErrors.bankName} isDisabled>
-              <FormLabel color="#000000">Card Name</FormLabel>
-              <Input type="text" name="bankName" value={formData.bankName} border="1.5px dashed white" onChange={handleChange} />
+          
+            <FormControl id="bankName"  isDisabled>
+              <FormLabel color="#000000">Bank Name</FormLabel>
+              <Input type="text" name="bankName" value={data.bankName} border="1.5px dashed white" />
               <FormErrorMessage>{formErrors.bankName}</FormErrorMessage>
             </FormControl>
-          </GridItem>
-          <GridItem colSpan={2}>
-            <FormControl id="cardName" isRequired isInvalid={!!formErrors.cardName} isDisabled>
+          
+            <FormControl id="cardName"  isDisabled>
               <FormLabel color="#000000">Card Name</FormLabel>
-              <Input type="text" name="cardName" value={formData.cardName} border="1.5px dashed white" onChange={handleChange} />
+              <Input type="text" name="cardName" value={data.cardName} border="1.5px dashed white"/>
               <FormErrorMessage>{formErrors.cardName}</FormErrorMessage>
             </FormControl>
-          </GridItem>
+          
           {/* <GridItem>
             <FormControl id="creditScore" isRequired isInvalid={!!formErrors.creditScore}>
               <FormLabel color="#000000">Credit Score</FormLabel>
@@ -157,23 +256,33 @@ export const CreditCardApplicationForm = () => {
               <FormErrorMessage>{formErrors.creditScore}</FormErrorMessage>
             </FormControl>
           </GridItem> */}
-          <GridItem colSpan={2}>
+          <FormControl id="aadharCard" isRequired isInvalid={!!formErrors.aadharCard}>
+              <FormLabel color="#000000">Aadhar Card</FormLabel>
+              <Input type="file" name="aadharCard" accept="image/*" border="1.5px dashed white" onChange={handleAadharCardUpload} />
+              <FormErrorMessage>{formErrors.aadharCard}</FormErrorMessage>
+            </FormControl>
+          
             <FormControl id="panCard" isRequired isInvalid={!!formErrors.panCard}>
               <FormLabel color="#000000">PAN Card</FormLabel>
               <Input type="file" name="panCard" accept="image/*" border="1.5px dashed white" onChange={handlePanCardUpload} />
               <FormErrorMessage>{formErrors.panCard}</FormErrorMessage>
             </FormControl>
-          </GridItem>
-        </Grid>
-        <Stack direction="row" justify="flex-end" mt={6}>
-          <Button colorScheme="blue" type="submit" >
-            Submit
-          </Button>
-        </Stack>
-      </form>
-    </Box>
-    </Container>
-    </div>
-  );
-};
+          
+        
+            </ModalBody></Flex>
+  
+            <ModalFooter>
+              <Button colorScheme='blue' mr={3} onClick={handleSubmit}>
+                Save
+              </Button>
+              <Button onClick={onClose}>Cancel</Button>
+            </ModalFooter></form>
+          </ModalContent>
+        </Modal> 
+        </Box>
+    )
+  }
 
+
+
+  
