@@ -16,9 +16,9 @@ import {
     Text,
     Flex,
 } from "@chakra-ui/react";
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import { CreditScoreModal } from "./CreditScoreModal";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 let initialState = {
@@ -88,15 +88,33 @@ export const CreditScoreForm = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [score, setScore] = useState(null);
+    const [auth] = useState(JSON.parse(localStorage.getItem("isAuth")));
+    const [open, setOpen] = useState(false);
+    const [data, setData] = useState({});
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         dispatch({ type: e.target.name, payload: e.target.value })
     }
 
+    const generateScore = () => {
+        const randomScore = Math.floor(Math.random() * 600) + 300;
+        setScore(randomScore > 900 ? 900 : randomScore);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setData(state);
+        generateScore();
+        dispatch({ type: "reset" });
+        setOpen(true);
+    }
+
 
     return <Box>
         <Button boxShadow={"md"} backgroundColor={"#008600"} color={"white"} mt={"20px"} width={"53%"} height={"8.8vh"} fontSize={"2xl"} fontWeight={"bold"} variant={"solid"} _hover={{ backgroundColor: "#276749" }} onClick={() => {
-            onOpen()
+            return (auth ? onOpen() : navigate("/login"))
         }}
         >
             Get my scores
@@ -113,7 +131,7 @@ export const CreditScoreForm = () => {
                         <Text fontSize={"sm"}>Please provide your information to proceed</Text>
                     </ModalHeader>
                     <ModalCloseButton />
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <Flex>
                             <ModalBody>
                                 <FormControl isRequired>
@@ -121,28 +139,32 @@ export const CreditScoreForm = () => {
                                     <Input
                                         placeholder="Enter first name as per PAN"
                                         name="name"
+                                        value={state.name}
                                         onChange={handleChange}
                                     />
                                 </FormControl>
-                                <FormControl isRequired>
+                                <FormControl isRequired >
                                     <FormLabel>Last Name</FormLabel>
                                     <Input
                                         placeholder="Enter last name as per PAN"
                                         name="lastName"
+                                        value={state.lastName}
                                         onChange={handleChange}
                                     />
                                 </FormControl>
-                                <FormControl isRequired>
+                                <FormControl isRequired >
                                     <FormLabel>PAN</FormLabel>
                                     <Input
                                         placeholder="Enter your 10-character alphanumeric PAN"
                                         name="pan"
+                                        value={state.panNo}
                                         onChange={handleChange}
                                     />
                                 </FormControl>
                                 <FormControl isRequired>
                                     <FormLabel>Date of Birth</FormLabel>
                                     <Input type="date" name="dob"
+                                        value={state.dob}
                                         onChange={handleChange} />
                                 </FormControl>
                             </ModalBody>
@@ -151,14 +173,17 @@ export const CreditScoreForm = () => {
                                     <FormLabel>Mobile Number</FormLabel>
                                     <Input
                                         placeholder="Mobile number linked to PAN" name="mobile"
+                                        value={state.mobile}
                                         onChange={handleChange}
                                     />
                                 </FormControl>
                                 <FormControl isRequired>
                                     <FormLabel>Email ID</FormLabel>
                                     <Input
+                                        type="email"
                                         placeholder='Enter your personal email ID'
                                         name="email"
+                                        value={state.email}
                                         onChange={handleChange}
                                     />
                                 </FormControl>
@@ -167,6 +192,7 @@ export const CreditScoreForm = () => {
                                     <Select
                                         placeholder="Select Gender"
                                         name='gender'
+                                        value={state.gender}
                                         onChange={handleChange}
                                     >
                                         <option value="men">Men</option>
@@ -178,6 +204,7 @@ export const CreditScoreForm = () => {
                                     <Select
                                         placeholder="Select employment type"
                                         name="employment"
+                                        value={state.employment}
                                         onChange={handleChange}
                                     >
                                         <option value="men">Salaried</option>
@@ -187,12 +214,13 @@ export const CreditScoreForm = () => {
                             </ModalBody>
                         </Flex>
                         <ModalFooter >
-                            <CreditScoreModal dispatch={dispatch} state={state}/>
+                            <Button type="submit" backgroundColor={"#008600"} color={"white"} mr={"5px"} _hover={{ backgroundColor: "#276749" }}>Proceed</Button>
                             <Button onClick={onClose}>Cancel</Button>
                         </ModalFooter>
                     </form>
                 </ModalContent>
             </ModalOverlay>
         </Modal>
+        <CreditScoreModal state={data} open={open} setOpen={setOpen} score={score} />
     </Box>
 }
