@@ -48,15 +48,16 @@ Credit Guru utilizes the following technologies and frameworks:
 Frontend: HTML, CSS, JavaScript, React
 Backend: Node.js
 Database: Json server
-Contributing
- @Shreekant-totla
- @Ankit0207
 
 
-The Credit Guru project is licensed under the MIT License.
+# CONTRIBUTORS :- 
+  ## @Shreekant-totla
+  ## @Ankit0207
+
+
 
 # Contact
-If you have any questions, suggestions, or concerns about the Credit Guru project, please contact us at your-jha.chakresh2001@gmail.com.com.
+If you have any questions, suggestions, or concerns about the Credit Guru project, please contact us at jha.chakresh2001@gmail.com.com.
 
 Thank you for using Credit Guru! We hope you find it helpful and empowering for your financial journey.
 
