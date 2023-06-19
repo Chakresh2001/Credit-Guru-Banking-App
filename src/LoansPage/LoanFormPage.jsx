@@ -59,7 +59,7 @@ export function LoanFormPage() {
     setLoanTenure('');
     setLoanAmount('');
     setInterestRate(0);
-    setFile(null);
+    setAadharCard(null);
     setError('');
   }
 
@@ -112,9 +112,8 @@ export function LoanFormPage() {
         loanType,
         loanTenure,
         loanAmount,
-        aadharCard: file,
+        aadharCard,
         status: false,
-        file,
 
       }
     }
