@@ -45,7 +45,7 @@ Open your web browser and visit http://localhost:3000 to access the Credit Guru 
 # Technologies Used
 Credit Guru utilizes the following technologies and frameworks:
 
-Frontend: HTML, CSS, JavaScript, React
+Frontend: HTML, CSS, JavaScript, React, Recharts
 Backend: Node.js
 Database: Json server
 
