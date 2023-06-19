@@ -18,15 +18,11 @@ export const UserCreditCard = () => {
   useEffect(() => {
     axios.get("https://creditguru.onrender.com/users").then((res) => {
       setData(res.data)
-      console.log(res.data)
-
-      let data = res?.data
-      data.map((el,id)=>{
-        return (el.name === userName ? setUserCard(el.card) : null);
-      })
     });
 
-   console.log(userCard);
+    data.map((el, id) => {
+      return (el.name === userName ? setUserCard(el.card) : null);
+    });
 
   }, [data.length]);
 
@@ -35,9 +31,11 @@ export const UserCreditCard = () => {
       <Heading as="h1" size="xl" borderBottom={"2px solid gray"} p={5}>
         My Credit Cards
       </Heading>
-      
-          <Cards {...userCard} data={data} />
-     
+      {userCard.map((el, i) => {
+        return (
+          <Cards {...el} data={data} />
+        )
+      })}
     </Box>
   )
 }

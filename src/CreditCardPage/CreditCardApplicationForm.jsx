@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react"
+import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from "@chakra-ui/react"
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -14,6 +14,8 @@ export const CreditCardApplicationForm = ({userId}) => {
   const [cvv, setCVV] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [generationDate, setGenerationDate] = useState('');
+
+  const toast = useToast()
 
   const [userData,setUserData] = useState([])
   
@@ -124,9 +126,9 @@ export const CreditCardApplicationForm = ({userId}) => {
     for(let i=0;i<userData.length;i++){
     if(userData[i].name === username){
       
-      console.log(userData.card,"cardss")
+      console.log(userData[i].card,"cardss")
       axios.patch(`https://creditguru.onrender.com/users/${userData[i].id}`,{
-        card:[userData.card = {
+        card:[...userData[i].card,{
           cardNumber: formData.cardNumber,
           cvv:formData.cvv,
           expire:formData.expiryDate,
@@ -135,7 +137,13 @@ export const CreditCardApplicationForm = ({userId}) => {
         }]
       }
       ).then((res)=>{
-        console.log("server",res.data)
+        toast({
+          title: 'SUCCESSFULLY APPLIED FOR CARD',
+          status: 'success',
+          duration: 2000,
+          position:"top-right",
+          isClosable: true,
+        })
       })
       console.log(userData[i].id,"id")
     }
@@ -198,7 +206,8 @@ export const CreditCardApplicationForm = ({userId}) => {
           isOpen={isOpen}
           onClose={onClose}
         >
-          <ModalOverlay />
+          <ModalOverlay bg='blackAlpha.300'
+        backdropFilter='blur(10px)' />
           <ModalContent>
             <ModalHeader>Create your account</ModalHeader>
             <ModalCloseButton /><form>
