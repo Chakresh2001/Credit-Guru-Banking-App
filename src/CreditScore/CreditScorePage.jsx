@@ -1,8 +1,11 @@
 import { Box, Center, Flex, Text } from "@chakra-ui/react"
 import { CreditScoreForm } from "./Components/CreditScoreForm"
 import { CreditScoreModal } from "./Components/CreditScoreModal"
+import { useState } from "react"
 
 export const CreditScorePage = () => {
+
+    
     return <Box>
         <Flex backgroundImage={"url('https://creditkarma-cms.imgix.net/wp-content/uploads/2020/08/LP4_desktop_hero.png?auto=compress')"} h={"74vh"} backgroundColor={"#BEE3F8"} alignItems={"center"}
         >

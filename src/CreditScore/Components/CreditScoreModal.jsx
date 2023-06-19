@@ -11,19 +11,12 @@ import {
   Text,
   Center,
 } from "@chakra-ui/react";
-import React, { useState } from 'react';
+import React from 'react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Label } from 'recharts';
 
-export const CreditScoreModal = ({state}) => {
+export const CreditScoreModal = ({ state, open, score, setOpen }) => {
 
-  const [score, setScore] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const generateScore = () => {
-    const randomScore = Math.floor(Math.random() * 600) + 300;
-    setScore(randomScore > 900 ? 900 : randomScore);
-    onOpen();
-  };
 
   const data = [
     { name: 'Score', value: score || 0 },
@@ -40,13 +33,10 @@ export const CreditScoreModal = ({state}) => {
     }
   };
 
-  return <Box>
-    <Button backgroundColor={"#008600"} color={"white"} mr={"5px"} _hover={{ backgroundColor: "#276749" }} onClick={generateScore}
-    >
-      Proceed
-    </Button>
 
-    <Modal isCentered isOpen={isOpen} onClose={onClose} size={"lg"}>
+  return <Box>
+
+    <Modal isCentered isOpen={open} onClose={onClose} size={"lg"}>
       <ModalOverlay
         bg='blackAlpha.300'
         backdropFilter='blur(10px) '
@@ -56,7 +46,7 @@ export const CreditScoreModal = ({state}) => {
             <Text fontSize={"xx-large"} textAlign={"center"}>Hello, {state.name}!</Text>
             <Text textAlign={"center"} mt={"15px"}>Here's your credit score.</Text>
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton onClick={()=>setOpen(false)} />
           <ModalBody>
             {score && (
               <Center>
