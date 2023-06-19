@@ -5,8 +5,6 @@ import { useState } from "react";
 import { CreditCardApplicationForm } from "../CreditCardApplicationForm";
 
 export const ProductCard = ({ data }) => {
-
-    const [onOpen, setOnOpen] = useState(false);
     // console.log("data",data.id)
     return <Box display="flex" width="80%" margin="auto" borderRadius="8px" padding="30px" boxShadow={"lg"} border={"1px solid #E2E8F0"} mt={"15px"}>
         <div style={{ width: "25%" }}>
