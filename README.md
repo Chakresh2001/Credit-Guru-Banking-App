@@ -1,7 +1,7 @@
-## Credit Guru
+# Credit Guru
 Welcome to Credit Guru, an online platform that offers users the ability to apply for various types of loans and credit cards. This README file provides an overview of the project, its features, and instructions for setting up and running the website locally.
 
-## Features
+# Features
 Loan Application: Users can easily apply for different types of loans, including personal loans, mortgages, auto loans, student loans, and more. The application process is simplified and streamlined for a convenient user experience.
 
 Credit Card Application: Users can apply for a wide range of credit cards available from trusted financial institutions. The website provides information about different card options, their benefits, and features to help users make informed decisions.
@@ -42,7 +42,7 @@ Copy code
 npm start
 Open your web browser and visit http://localhost:3000 to access the Credit Guru website.
 
-## Technologies Used
+# Technologies Used
 Credit Guru utilizes the following technologies and frameworks:
 
 Frontend: HTML, CSS, JavaScript, React
@@ -55,7 +55,7 @@ Contributing
 
 The Credit Guru project is licensed under the MIT License.
 
-## Contact
+# Contact
 If you have any questions, suggestions, or concerns about the Credit Guru project, please contact us at your-jha.chakresh2001@gmail.com.com.
 
 Thank you for using Credit Guru! We hope you find it helpful and empowering for your financial journey.
@@ -69,6 +69,11 @@ https://wonderful-sound.vercel.app/
 
 ## LANDING PAGE :- 
 ![CREDITGURU LANDING PAGE](https://github.com/Chakresh2001/wonderful-sound/assets/120241122/6bc289e9-62cb-4583-ae1b-721184cc616c)
+
+## LOGIN && SIGNUP PAGE :-
+
+![LOGIN PAGE](https://github.com/Chakresh2001/wonderful-sound/assets/120241122/2215897f-493f-42c9-9fcf-21551d07ca36)
+
 
 ## CREDIT CARDS PAGE :- 
 ![CREDIT CARDS PAGE](https://github.com/Chakresh2001/wonderful-sound/assets/120241122/5448a606-10c1-4405-aa67-129fc58dae80)
