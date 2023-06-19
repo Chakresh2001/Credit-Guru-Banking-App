@@ -12,7 +12,7 @@ export const Cards = ({ cardNumber, bankName, expire, cvv, bankCard }) => {
 
 
     return <Box m={7}>
-        <Flex w={"75%"} margin={"auto"} p={5} boxShadow={"lg"}>
+        <Flex w={"75%"} margin={"auto"} p={5} boxShadow={"lg"} backgroundColor={"white"} borderRadius={"15px"}>
             {showCVV ? <Box backgroundImage={"url('./images/bg-card-back.png')"}
                 display="flex"
                 flexDirection="column"
