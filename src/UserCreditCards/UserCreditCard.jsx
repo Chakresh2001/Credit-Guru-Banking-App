@@ -31,7 +31,7 @@ export const UserCreditCard = () => {
       <Heading as="h1" size="xl" borderBottom={"2px solid gray"} p={5}>
         My Credit Cards
       </Heading>
-      {userCard.map((el, i) => {
+      {userCard?.map((el, i) => {
         return (
           <Cards {...el} data={data} />
         )

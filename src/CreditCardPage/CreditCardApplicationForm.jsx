@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from "@chakra-ui/react"
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export const CreditCardApplicationForm = ({userId}) => {
   // const {id} = useParams();
@@ -9,6 +10,10 @@ export const CreditCardApplicationForm = ({userId}) => {
 
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
+
+  const auth = localStorage.getItem("isAuth");
+
+  const navigate = useNavigate()
   
   const [cardNumber, setCardNumber] = useState('');
   const [cvv, setCVV] = useState('');
@@ -19,36 +24,23 @@ export const CreditCardApplicationForm = ({userId}) => {
 
   const [userData,setUserData] = useState([])
   
-
   const [formErrors, setFormErrors] = useState({});
 
   const [data,setData] = useState({});
 
   
   const fetchandRender = () => {
-    
-    axios.get(`https://creditguru.onrender.com/cards/${userId}`).then((res)=> {
-      setData(res.data);
-    // console.log(res.data.bankName)
+    if(auth){
+      axios.get(`https://creditguru.onrender.com/cards/${userId}`).then((res) => {
+        setData(res.data);
+      })
+      onOpen();
+    }else{
+      navigate("/login")
+    }
+    }
+  
 
-    })
-    onOpen()
-    // console.log(formData,"xyz")
-    // console.log(data.bankName)
-  }
-
-//   useEffect(() => {
-//     fetchandRender()
-// }, []);
-
-  const divStyles = {
-    backgroundColor: "yellow",
-    backgroundImage: `url(${"./images/credit-card-background.jpg"})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    width: "100%",
-    height: "900px"
-  }
   const username = localStorage.getItem('name');
   
   const obj ={
