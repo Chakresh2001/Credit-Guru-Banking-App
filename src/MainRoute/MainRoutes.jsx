@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useParams} from 'react-router-dom'
 import { Navbar } from './Navbar'
 import { Homepage } from '../HomePage/Homepage'
 import { CreditCardPage } from '../CreditCardPage/CreditCardPage'
@@ -23,12 +23,11 @@ import { CreditScorePage } from '../CreditScore/CreditScorePage'
 
 import { AdminLogin } from '../AdminPage/AdminLogin'
 import { AdminHome } from '../AdminPage/AdminHome'
-
-
-
+// import CreditCardGenerator from '../CreditCardPage/CreditCardNumberGenerator'
 
 
 export const MainRoutes = () => {
+  
   return (
     <div>
 
@@ -51,7 +50,11 @@ export const MainRoutes = () => {
       <Route path="/loan-calculator" element={<LoanTenure/>} />
 
 
+      <Route path="/credit-cards-form/:id" element={<CreditCardApplicationForm/>} />
+
+
       <Route path="/credit-cards-form" element={<PrivateRoute><CreditCardApplicationForm/></PrivateRoute>} />
+
 
       <Route path="/user-loans" element={<UserLoans/>}/>
 
@@ -61,8 +64,8 @@ export const MainRoutes = () => {
 
       <Route path="admin-Home" element={<AdminHome/>}/>
 
-
-     </Routes>
+      {/* <Route path="/credit-card-generator" element={<CreditCardGenerator/>} /> */}
+    </Routes>
      <Footer/>
 
     </div>
